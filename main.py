@@ -34,31 +34,29 @@ single_access_url = "https://api.justyo.co/yo/"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        main_template = JINJA_ENVIRONMENT.get_template('index.html')
+        main_template = JINJA_ENVIRONMENT.get_template('templates/index.html')
         self.response.write(main_template.render())
 
 class YoOauth(webapp2.RequestHandler):
     def get(self):
         yo_name = self.request.get('yo-name')
-        yo_btn = self.request.get('yo-btn')
-
-        if yo_btn:
-            fctn = YoFunc()
-            yo_user = fctn.yo_one(yo_name)
-        
+        fctn = YoFunc()
+        yo_user = fctn.yo_one(yo_name)
+        yoauth_template = JINJA_ENVIRONMENT.get_template('templates/yoauth.html')
+        self.response.write(yoauth_template.render())
 
 class YoFunc:
     def yo_all(self):
     	data = {'api_token': api_token}
         data = urllib.urlencode(data)
-    	request_object = urllib2.Request(access_url, data)
+    	request_object = urllib2.Request(all_access_url, data)
     	response = urllib2.urlopen(request_object)
 
     def yo_one(self, userName):
     	data = {'api_token': api_token, 'username': userName}
         data = urllib.urlencode(data)
-    	request_object = urllib2.Request(access_url, data)
-    	response = urllib2.urlopen(request_object) 	
+    	request_object = urllib2.Request(single_access_url, data)
+    	response = urllib2.urlopen(request_object)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
