@@ -27,7 +27,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-api_token = "c1931e1c-a127-6821-af9e-4c89cb79e7d9"
+api_token = "enter your api token"
 
 all_access_url = "http://api.justyo.co/yoall/"
 single_access_url = "https://api.justyo.co/yo/"
